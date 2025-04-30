@@ -57,8 +57,12 @@ yarn dev
 pnpm dev
 ````
 
-Open your browser and navigate to http://localhost:3000 to see the website.
-Project Structure
+4. Open your browser and navigate to http://localhost:3000 to see the website.
+
+5. Project Structure
+   The project structure is organized as follows:
+
+```plaintext
 .
 ├── app/
 │ ├── components/
@@ -77,12 +81,14 @@ Project Structure
 ├── [next.config.mjs](http://_vscodecontentref_/5)
 ├── [tsconfig.json](http://_vscodecontentref_/6)
 └── [package.json](http://_vscodecontentref_/7)
-Deployment
-he easiest way to deploy your Next.js app is to use Vercel. Follow the Next.js deployment documentation for more details.
+```
 
-Contact
-Feel free to reach out via the contact form on the website or directly at [judemike120@gmail.com](mailto:judemike120@gmail.com).
+6. Deployment
+   The easiest way to deploy your Next.js app is to use Vercel. Follow the Next.js deployment documentation for more details.
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-github.com/proall22/portfolio_next.git
+7. Contact
+   Feel free to reach out via the contact form on the website or directly at [judemike120@gmail.com](mailto:judemike120@gmail.com).
+
+8. License
+   This project is licensed under the MIT License. See the LICENSE file for details.
+   github.com/proall22/portfolio_next.git
