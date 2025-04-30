@@ -1,103 +1,108 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import { ThemeProvider } from "./components/ThemeProvider";
+import { XPProvider } from "./contexts/XPContext";
+import ProgressBar from "./components/ProgressBar";
+import XPBar from "./components/XPBar";
+import XPTracker from "./components/XPTracker";
+import HeroSection from "./components/HeroSection";
+import AboutSection from "./components/AboutSection";
+import SkillsSection from "./components/SkillsSection";
+import ProjectsSection from "./components/ProjectsSection";
+import ContactSection from "./components/ContactSection";
+import Footer from "./components/Footer";
+import WebAssemblyDemo from "./components/WebAssemblyDemo";
+import DynamicDataVisualization from "./components/DynamicDataVisualization";
+import Web3Integration from "./components/Web3Integration";
+import InteractiveCodePlayground from "./components/InteractiveCodePlayground";
+import EasterEgg from "./components/EasterEgg";
+import { useScrollProgress } from "./hooks/useScrollProgress";
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+// Dynamically import components that use the theme context to ensure they're only loaded client-side
+const Header = dynamic(() => import("./components/Header"), { ssr: false });
+const MobileNavigation = dynamic(
+	() => import("./components/MobileNavigation"),
+	{ ssr: false }
+);
+
+export default function GamifiedPortfolio() {
+	const [currentSection, setCurrentSection] = useState(0);
+	const [isMobile, setIsMobile] = useState(false);
+	const { progress } = useScrollProgress();
+
+	const sections = ["hero", "about", "skills", "projects", "contact"];
+
+	useEffect(() => {
+		// Check if we're on mobile
+		setIsMobile(window.innerWidth < 768);
+
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+
+		window.addEventListener("resize", handleResize);
+
+		const handleScroll = () => {
+			const scrollPosition = window.scrollY;
+			const windowHeight = window.innerHeight;
+
+			// Determine which section is currently in view
+			for (let i = 0; i < sections.length; i++) {
+				const section = document.getElementById(sections[i]);
+				if (!section) continue;
+
+				const sectionTop = section.offsetTop;
+				const sectionHeight = section.offsetHeight;
+
+				if (
+					scrollPosition >= sectionTop - windowHeight / 3 &&
+					scrollPosition < sectionTop + sectionHeight - windowHeight / 3
+				) {
+					setCurrentSection(i);
+					break;
+				}
+			}
+		};
+
+		window.addEventListener("scroll", handleScroll);
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("resize", handleResize);
+		};
+	}, [sections]);
+
+	return (
+		<ThemeProvider>
+			<XPProvider>
+				<div className="min-h-screen transition-colors duration-500">
+					<Header />
+					<ProgressBar progress={progress} />
+					<XPBar />
+					<XPTracker />
+					<main className="container mx-auto px-4">
+						<HeroSection />
+						<AboutSection />
+						<SkillsSection />
+						<ProjectsSection />
+						<InteractiveCodePlayground />
+						<WebAssemblyDemo />
+						<DynamicDataVisualization />
+						<Web3Integration />
+						<ContactSection />
+						<EasterEgg />
+					</main>
+					{isMobile && (
+						<MobileNavigation
+							sections={sections}
+							currentSection={currentSection}
+						/>
+					)}
+					<Footer />
+				</div>
+			</XPProvider>
+		</ThemeProvider>
+	);
 }
