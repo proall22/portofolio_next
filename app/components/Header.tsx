@@ -133,7 +133,7 @@ export default function Header() {
 
 	return (
 		<motion.header
-			className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+			className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white dark:bg-gray-900 bg-opacity-90 backdrop-blur-md shadow-md"
 			style={{
 				backgroundColor:
 					theme === "dark"
@@ -141,6 +141,9 @@ export default function Header() {
 						: `rgba(255, 255, 255, ${headerOpacity})`,
 				backdropFilter: `blur(${headerBlur}px)`,
 				boxShadow: headerShadow,
+				position: "sticky",
+				top: 0,
+				zIndex: 50,
 			}}
 		>
 			<nav className="container mx-auto px-4 py-4 flex justify-between items-center">

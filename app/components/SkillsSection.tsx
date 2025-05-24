@@ -32,19 +32,31 @@ const skillCategories = [
 export default function SkillsSection() {
 	const [activeCategory, setActiveCategory] = useState(skillCategories[0].name);
 	const { theme } = useTheme();
-	const [skillLevels, setSkillLevels] = useState<Record<string, number>>({});
+	const [skillLevels, setSkillLevels] = useState<
+		Record<string, { percentage: number; experience: string }>
+	>({});
 
 	// Generate consistent skill levels on component mount (client-side only)
 	useEffect(() => {
-		const levels: Record<string, number> = {};
-
-		// Generate a consistent percentage for each skill
-		skillCategories.forEach((category) => {
-			category.skills.forEach((skill, index) => {
-				// Use a deterministic pattern based on the skill name and index
-				levels[skill] = 50 + ((index * 10) % 50);
-			});
-		});
+		const levels: Record<string, { percentage: number; experience: string }> = {
+			React: { percentage: 90, experience: "6+ years" },
+			"Next.js": { percentage: 85, experience: "6+ years" },
+			Express: { percentage: 80, experience: "6+ years" },
+			"Vue.js": { percentage: 75, experience: "4+ years" },
+			"CSS/SASS": { percentage: 85, experience: "6+ years" },
+			TypeScript: { percentage: 90, experience: "6+ years" },
+			Webpack: { percentage: 80, experience: "4+ years" },
+			"Node.js": { percentage: 90, experience: "6+ years" },
+			Python: { percentage: 85, experience: "4+ years" },
+			Java: { percentage: 70, experience: "2+ years" },
+			SQL: { percentage: 85, experience: "5+ years" },
+			GraphQL: { percentage: 80, experience: "4+ years" },
+			Figma: { percentage: 80, experience: "4+ years" },
+			"Responsive Design": { percentage: 90, experience: "6+ years" },
+			"Penetration Testing": { percentage: 70, experience: "3+ years" },
+			"Security Auditing": { percentage: 65, experience: "2+ years" },
+			OWASP: { percentage: 70, experience: "3+ years" },
+		};
 
 		setSkillLevels(levels);
 	}, []);
@@ -136,7 +148,9 @@ export default function SkillsSection() {
 														: "bg-gradient-to-r from-fuchsia-400 to-purple-500"
 												}`}
 												initial={{ width: 0 }}
-												animate={{ width: `${skillLevels[skill] || 70}%` }}
+												animate={{
+													width: `${skillLevels[skill]?.percentage || 70}%`,
+												}}
 												transition={{ duration: 1, delay: index * 0.2 }}
 											/>
 										</motion.div>
@@ -145,7 +159,8 @@ export default function SkillsSection() {
 												theme === "dark" ? "text-gray-400" : "text-gray-600"
 											}`}
 										>
-											Experience: {index + 1} years
+											Experience:{" "}
+											{skillLevels[skill]?.experience || `${index + 1} years`}
 										</p>
 									</motion.div>
 								))}
