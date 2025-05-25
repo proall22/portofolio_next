@@ -105,7 +105,9 @@ export default function AboutSection() {
 								)}
 							</div>
 							<motion.div
-								className={theme === "dark" ? "" : "light-card p-4 rounded-lg"}
+								className={`p-4 rounded-lg ${
+									theme === "dark" ? "bg-gray-800" : "light-card"
+								}`}
 								whileHover={{
 									y: -5,
 									boxShadow:

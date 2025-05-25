@@ -76,21 +76,32 @@ export default function ContactSection() {
 
 		// Simulate API call
 		try {
-			await new Promise((resolve) => setTimeout(resolve, 1500));
-			setSubmitStatus("success");
-			setFormData({ name: "", email: "", message: "" });
+			const response = await fetch("/api/sendEmail", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
 
-			// Reset success message after 5 seconds
-			setTimeout(() => {
-				setSubmitStatus("idle");
-			}, 5000);
+			if (response.ok) {
+				setSubmitStatus("success");
+				setFormData({ name: "", email: "", message: "" });
+
+				// Reset success message after 5 seconds
+				setTimeout(() => {
+					setSubmitStatus("idle");
+				}, 5000);
+			} else {
+				setSubmitStatus("error");
+			}
 		} catch (error) {
+			console.error("Error submitting form:", error);
 			setSubmitStatus("error");
 		} finally {
 			setIsSubmitting(false);
 		}
 	};
-
 	return (
 		<section
 			id="contact"
