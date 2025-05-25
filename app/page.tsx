@@ -15,7 +15,7 @@ import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import WebAssemblyDemo from "./components/WebAssemblyDemo";
 import DynamicDataVisualization from "./components/DynamicDataVisualization";
-import Web3Integration from "./components/Web3Integration";
+// import Web3Integration from "./components/Web3Integration";
 import InteractiveCodePlayground from "./components/InteractiveCodePlayground";
 import EasterEgg from "./components/EasterEgg";
 import { useScrollProgress } from "./hooks/useScrollProgress";
@@ -90,7 +90,7 @@ export default function GamifiedPortfolio() {
 						<InteractiveCodePlayground />
 						<WebAssemblyDemo />
 						<DynamicDataVisualization />
-						<Web3Integration />
+						{/* <Web3Integration /> */}
 						<ContactSection />
 						<EasterEgg />
 					</main>

@@ -101,7 +101,7 @@ export default function HeroSection() {
 					className="flex justify-center space-x-6"
 				>
 					<motion.a
-						href="https://github.com"
+						href="https://github.com/proall22/"
 						target="_blank"
 						rel="noopener noreferrer"
 						className={`${
@@ -133,7 +133,7 @@ export default function HeroSection() {
 						<Linkedin className="w-8 h-8" />
 					</motion.a>
 					<motion.a
-						href="https://twitter.com"
+						href="https://x.com/home"
 						target="_blank"
 						rel="noopener noreferrer"
 						className={`${
