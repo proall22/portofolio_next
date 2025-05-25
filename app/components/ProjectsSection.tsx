@@ -66,7 +66,7 @@ const projects = [
 		],
 		demoUrl: "https://omni-connect-one.vercel.app/",
 		githubUrl: "https://github.com/proall22/OmniConnect",
-		image: "/ibm.png",
+		image: "/Ibm.png",
 	},
 ];
 
