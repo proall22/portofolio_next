@@ -117,7 +117,7 @@ export default function HeroSection() {
 						<GitHub className="w-8 h-8" />
 					</motion.a>
 					<motion.a
-						href="https://linkedin.com"
+						href="https://www.linkedin.com/in/misgana-bb46bb288/"
 						target="_blank"
 						rel="noopener noreferrer"
 						className={`${
@@ -133,7 +133,7 @@ export default function HeroSection() {
 						<Linkedin className="w-8 h-8" />
 					</motion.a>
 					<motion.a
-						href="https://x.com/home"
+						href="https://x.com/Misgu2na"
 						target="_blank"
 						rel="noopener noreferrer"
 						className={`${
